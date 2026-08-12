@@ -22,8 +22,14 @@
       line-height: 1.58;
       color: #202124;
     }
-    h1, h2, h3, p, li, td, th, .ins_text, .authors {
-      font-family: Palatino, "Palatino Linotype", "Book Antiqua", Georgia, serif;
+    h1, h2, h3, p, li, td, th, .ins_text, .authors, .section-heading, .text-body {
+      font-family: Palatino, "Palatino Linotype", "Book Antiqua", Georgia, serif !important;
+    }
+    .section-heading {
+      font-weight: 500 !important;
+      font-size: clamp(2.4rem, 4vw, 3.2rem) !important;
+      line-height: 1.2;
+      color: #202124;
     }
     .text-title {
       font-weight: 500;
@@ -47,6 +53,9 @@
       margin: 0; padding: 14px;
       overflow: auto; border: 1px solid #eee; border-radius: 8px; background: #fafafa;
       font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+    }
+    .figure-box figcaption::before {
+      content: none !important;
     }
     .exp-grid {
       display: grid;
@@ -185,7 +194,7 @@
 
   <!-- Abstract -->
   <div class="row top20 text-body">
-    <h1>Abstract</h1>
+    <h1 class="section-heading">Abstract</h1>
     Safety is a fundamental requirement for autonomous systems operating in critical domains.
     Control barrier functions (CBFs) have been used to design safety filters that minimally alter nominal controls for such systems to maintain their safety.
     Learning neural CBFs has been proposed as a data-driven alternative for their computationally expensive optimization-based synthesis.
@@ -199,7 +208,7 @@
 
   <!-- Experimental results -->
   <div class="row top20 text-body">
-    <h1>Experimental results</h1>
+    <h1 class="section-heading">Experimental results</h1>
     <p>
       We evaluate ICL-CBF against <span class="text-blue-bold">iDBF</span>, <span class="text-blue-bold">ROCBF</span>, and
       <span class="text-blue-bold">L-CBF</span> (neural CBF trained with ground-truth safety labels) on four scenarios:
@@ -344,22 +353,18 @@
   <!-- Poster -->
   <div class="row top30">
     <div class="col-md-10 col-md-offset-1 text-center">
-      <h2 style="margin-bottom: 16px;">Poster</h2>
+      <h2 class="section-heading" style="margin-bottom: 16px;">Poster</h2>
       <figure class="figure-box" style="margin-top: 0;">
         <img src="sources/poster.svg" alt="Conference poster"
              class="center-img scale-1-0"
-             style="transform: none; margin-bottom: 12px; width: 100%; max-width: 100%; height: auto; border: 1px solid #ddd; border-radius: 8px;">
-        <figcaption>
-          Project poster.
-          <a href="poster.pdf" target="_blank">Download PDF</a>
-        </figcaption>
+             style="transform: none; margin-bottom: 0; width: 100%; max-width: 100%; height: auto; border: 1px solid #ddd; border-radius: 8px;">
       </figure>
     </div>
   </div>
 
   <!-- Citation -->
   <div class="row top20">
-    <h1>Citation</h1>
+    <h1 class="section-heading">Citation</h1>
     <div class="codebox">
       <button class="copy-btn" aria-label="Copy to clipboard">Copy</button>
       <pre class="codebox-pre"><code class="nohighlight">@misc{yang2025learningneuralcontrolbarrier,
