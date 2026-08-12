@@ -54,13 +54,11 @@
       overflow: auto; border: 1px solid #eee; border-radius: 8px; background: #fafafa;
       font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
     }
-    .figure-box figcaption::before {
-      content: none !important;
-    }
     .exp-grid {
       display: grid;
       gap: 14px;
-      margin: 14px 0 8px;
+      margin: 14px auto 8px;
+      max-width: 820px;
     }
     .exp-grid.cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .exp-grid.cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
@@ -69,24 +67,60 @@
       text-align: center;
     }
     .exp-grid img {
-      width: 100%;
+      width: 85%;
+      max-width: 280px;
       height: auto;
       display: block;
+      margin: 0 auto;
       border: 1px solid #ddd;
       border-radius: 6px;
       background: #fff;
     }
-    .exp-grid figcaption,
-    .figure-box figcaption {
-      margin-top: 8px;
-      font-size: 1.15rem;
+    .exp-grid.cols-2 img {
+      max-width: 340px;
+      width: 90%;
+    }
+    .exp-grid figcaption {
+      margin-top: 6px;
+      font-size: 1.05rem;
+      color: #555;
+      font-style: italic;
+      line-height: 1.4;
+    }
+    .exp-grid figcaption::before {
+      content: none !important;
+      counter-increment: none;
+    }
+    .figure-box > figcaption {
+      margin-top: 10px;
+      font-size: 1.2rem;
       color: #555;
       font-style: italic;
       line-height: 1.45;
+      text-align: center;
     }
-    .exp-grid figcaption::before,
-    .figure-box figcaption::before {
-      content: none;
+    .figure-box > figcaption::before {
+      counter-increment: fig;
+      content: "Figure " counter(fig) ": ";
+      font-weight: 700;
+      font-style: normal;
+      color: #202124;
+    }
+    .poster-figure figcaption,
+    .poster-figure figcaption::before {
+      display: none !important;
+      content: none !important;
+      counter-increment: none !important;
+    }
+    /* Full-width experiment figures (e.g. sensitivity) stay readable but not huge */
+    .exp-figure-wide {
+      max-width: 720px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .exp-figure-wide img {
+      width: 100%;
+      max-width: 720px;
     }
     @media (max-width: 767px) {
       .exp-grid.cols-2,
@@ -219,32 +253,36 @@
     </p>
 
     <h2 style="margin-top: 28px; font-size: 1.55rem; font-weight: 500;">Single-integrator CBFs and constraint</h2>
-    <p>
-      Values of the learned constraint and neural CBFs. Black circles mark the obstacle.
-      In (a), the red curve is \(\{\mathrm{x}\mid\hat{c}_\phi(\mathrm{x})=\delta\}\) and blue points are expert states.
-      In (b)&ndash;(f), red contours are zero level sets of each (neural) CBF.
-    </p>
-    <div class="exp-grid cols-3">
-      <figure><img src="sources/exp/dist_rna_icl.png" alt="Learned constraint"><figcaption>(a) Learned constraint</figcaption></figure>
-      <figure><img src="sources/exp/dist_rna_icl_cbf.png" alt="ICL-CBF"><figcaption>(b) ICL-CBF</figcaption></figure>
-      <figure><img src="sources/exp/dist_rna_idbf.png" alt="iDBF"><figcaption>(c) iDBF</figcaption></figure>
-      <figure><img src="sources/exp/dist_rna_rocbf.png" alt="ROCBF"><figcaption>(d) ROCBF</figcaption></figure>
-      <figure><img src="sources/exp/dist_rna_approx_gt.png" alt="L-CBF"><figcaption>(e) L-CBF</figcaption></figure>
-      <figure><img src="sources/exp/dist_rna_gt.png" alt="Ground truth"><figcaption>(f) Ground truth</figcaption></figure>
-    </div>
+    <figure class="figure-box" style="margin-top: 8px;">
+      <div class="exp-grid cols-3">
+        <figure><img src="sources/exp/dist_rna_icl.png" alt="Learned constraint"><figcaption>(a) Learned constraint</figcaption></figure>
+        <figure><img src="sources/exp/dist_rna_icl_cbf.png" alt="ICL-CBF"><figcaption>(b) ICL-CBF</figcaption></figure>
+        <figure><img src="sources/exp/dist_rna_idbf.png" alt="iDBF"><figcaption>(c) iDBF</figcaption></figure>
+        <figure><img src="sources/exp/dist_rna_rocbf.png" alt="ROCBF"><figcaption>(d) ROCBF</figcaption></figure>
+        <figure><img src="sources/exp/dist_rna_approx_gt.png" alt="L-CBF"><figcaption>(e) L-CBF</figcaption></figure>
+        <figure><img src="sources/exp/dist_rna_gt.png" alt="Ground truth"><figcaption>(f) Ground truth</figcaption></figure>
+      </div>
+      <figcaption>
+        Values of the learned constraint and neural CBFs in the single-integrator scenario.
+        Black circles mark the obstacle. In (a), the red curve is \(\{\mathrm{x}\mid\hat{c}_\phi(\mathrm{x})=\delta\}\) and blue points are expert states.
+        In (b)&ndash;(f), red contours are zero level sets of each (neural) CBF.
+      </figcaption>
+    </figure>
 
     <h2 style="margin-top: 28px; font-size: 1.55rem; font-weight: 500;">Inverted-pendulum trajectories</h2>
-    <p>
-      Neural CBFs with closed-loop trajectories under CBF-QP policies.
-      Red points are initial states, green points (origin) are goals, and red contours are zero level sets.
-      iDBF and ROCBF can reach the goal while entering the failure set; ICL-CBF and L-CBF intervene successfully.
-    </p>
-    <div class="exp-grid cols-2">
-      <figure><img src="sources/exp/traj_pen_icl_new.png" alt="ICL-CBF trajectories"><figcaption>(a) ICL-CBF</figcaption></figure>
-      <figure><img src="sources/exp/traj_pen_idbf_new.png" alt="iDBF trajectories"><figcaption>(b) iDBF</figcaption></figure>
-      <figure><img src="sources/exp/traj_pen_rocbf_new.png" alt="ROCBF trajectories"><figcaption>(c) ROCBF</figcaption></figure>
-      <figure><img src="sources/exp/traj_pen_approx_gt_new.png" alt="L-CBF trajectories"><figcaption>(d) L-CBF</figcaption></figure>
-    </div>
+    <figure class="figure-box" style="margin-top: 8px;">
+      <div class="exp-grid cols-2">
+        <figure><img src="sources/exp/traj_pen_icl_new.png" alt="ICL-CBF trajectories"><figcaption>(a) ICL-CBF</figcaption></figure>
+        <figure><img src="sources/exp/traj_pen_idbf_new.png" alt="iDBF trajectories"><figcaption>(b) iDBF</figcaption></figure>
+        <figure><img src="sources/exp/traj_pen_rocbf_new.png" alt="ROCBF trajectories"><figcaption>(c) ROCBF</figcaption></figure>
+        <figure><img src="sources/exp/traj_pen_approx_gt_new.png" alt="L-CBF trajectories"><figcaption>(d) L-CBF</figcaption></figure>
+      </div>
+      <figcaption>
+        Neural CBFs with closed-loop trajectories under CBF-QP policies.
+        Red points are initial states, green points (origin) are goals, and red contours are zero level sets.
+        iDBF and ROCBF can reach the goal while entering the failure set; ICL-CBF and L-CBF intervene successfully.
+      </figcaption>
+    </figure>
 
     <h2 style="margin-top: 28px; font-size: 1.55rem; font-weight: 500;">Closed-loop success and collision rates</h2>
     <div class="table-responsive" style="margin-top: 12px; overflow-x: auto;">
@@ -328,26 +366,24 @@
     </div>
 
     <h2 style="margin-top: 28px; font-size: 1.55rem; font-weight: 500;">Safety labels for inverted pendulum</h2>
-    <p>
-      Training data annotations: red = unsafe, blue = safe; black margins mark the predefined safe set.
-      ICL labels are closest to L-CBF / ground truth.
-    </p>
-    <div class="exp-grid cols-2">
-      <figure><img src="sources/exp/data_pen_icl.png" alt="ICL labels"><figcaption>(a) ICL-CBF</figcaption></figure>
-      <figure><img src="sources/exp/data_pen_idbf.png" alt="iDBF labels"><figcaption>(b) iDBF</figcaption></figure>
-      <figure><img src="sources/exp/data_pen_rocbf.png" alt="ROCBF labels"><figcaption>(c) ROCBF</figcaption></figure>
-      <figure><img src="sources/exp/data_pen_gt.png" alt="L-CBF labels"><figcaption>(d) L-CBF</figcaption></figure>
-    </div>
+    <figure class="figure-box" style="margin-top: 8px;">
+      <div class="exp-grid cols-2">
+        <figure><img src="sources/exp/data_pen_icl.png" alt="ICL labels"><figcaption>(a) ICL-CBF</figcaption></figure>
+        <figure><img src="sources/exp/data_pen_idbf.png" alt="iDBF labels"><figcaption>(b) iDBF</figcaption></figure>
+        <figure><img src="sources/exp/data_pen_rocbf.png" alt="ROCBF labels"><figcaption>(c) ROCBF</figcaption></figure>
+        <figure><img src="sources/exp/data_pen_gt.png" alt="L-CBF labels"><figcaption>(d) L-CBF</figcaption></figure>
+      </div>
+      <figcaption>
+        Training data annotations for the inverted pendulum: red = unsafe, blue = safe; black margins mark the predefined safe set.
+        ICL labels are closest to L-CBF / ground truth.
+      </figcaption>
+    </figure>
 
     <h2 style="margin-top: 28px; font-size: 1.55rem; font-weight: 500;">Sensitivity to \(\delta\)</h2>
-    <p>
-      Collision and success rates as the constraint threshold \(\delta\) varies (single integrator and Dubins car).
-      Poor \(\delta\) can hurt performance; a grid search over \([0,1]\) finds strong settings (we use \(\delta=0.6\) in several tasks).
-    </p>
-    <figure class="figure-box" style="margin-top: 8px;">
+    <figure class="figure-box exp-figure-wide" style="margin-top: 8px;">
       <img src="sources/exp/sensitivity.png" alt="Sensitivity to delta"
-           style="width: 100%; max-width: 100%; height: auto; transform: none; margin-bottom: 8px; border: 1px solid #ddd; border-radius: 8px;">
-      <figcaption>Collision and success rates vs. \(\delta\).</figcaption>
+           style="height: auto; transform: none; margin-bottom: 8px; border: 1px solid #ddd; border-radius: 8px;">
+      <figcaption>Collision and success rates as \(\delta\) varies in the single-integrator and Dubins car scenarios.</figcaption>
     </figure>
   </div>
 
@@ -355,7 +391,7 @@
   <div class="row top30">
     <div class="col-md-10 col-md-offset-1 text-center">
       <h2 class="section-heading" style="margin-bottom: 16px;">Poster</h2>
-      <figure class="figure-box" style="margin-top: 0;">
+      <figure class="figure-box poster-figure" style="margin-top: 0;">
         <img src="sources/poster.svg" alt="Conference poster"
              class="center-img scale-1-0"
              style="transform: none; margin-bottom: 0; width: 100%; max-width: 100%; height: auto; border: 1px solid #ddd; border-radius: 8px;">
