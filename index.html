@@ -48,6 +48,42 @@
       overflow: auto; border: 1px solid #eee; border-radius: 8px; background: #fafafa;
       font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
     }
+    .exp-grid {
+      display: grid;
+      gap: 14px;
+      margin: 14px 0 8px;
+    }
+    .exp-grid.cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .exp-grid.cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .exp-grid figure {
+      margin: 0;
+      text-align: center;
+    }
+    .exp-grid img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      background: #fff;
+    }
+    .exp-grid figcaption,
+    .figure-box figcaption {
+      margin-top: 6px;
+      font-size: 0.92rem;
+      color: #555;
+      font-style: italic;
+    }
+    .exp-grid figcaption::before,
+    .figure-box figcaption::before {
+      content: none;
+    }
+    @media (max-width: 767px) {
+      .exp-grid.cols-2,
+      .exp-grid.cols-3 {
+        grid-template-columns: 1fr;
+      }
+    }
   </style>
 </head>
 
@@ -172,7 +208,36 @@
       ICL-CBF achieves the best CR/SR among methods that do not use ground-truth labels, and is close to L-CBF.
     </p>
 
-    <div class="table-responsive" style="margin-top: 18px; overflow-x: auto;">
+    <h2 style="margin-top: 28px; font-size: 1.55rem; font-weight: 500;">Single-integrator CBFs and constraint</h2>
+    <p>
+      Values of the learned constraint and neural CBFs. Black circles mark the obstacle.
+      In (a), the red curve is \(\{\mathrm{x}\mid\hat{c}_\phi(\mathrm{x})=\delta\}\) and blue points are expert states.
+      In (b)&ndash;(f), red contours are zero level sets of each (neural) CBF.
+    </p>
+    <div class="exp-grid cols-3">
+      <figure><img src="sources/exp/dist_rna_icl.png" alt="Learned constraint"><figcaption>(a) Learned constraint</figcaption></figure>
+      <figure><img src="sources/exp/dist_rna_icl_cbf.png" alt="ICL-CBF"><figcaption>(b) ICL-CBF</figcaption></figure>
+      <figure><img src="sources/exp/dist_rna_idbf.png" alt="iDBF"><figcaption>(c) iDBF</figcaption></figure>
+      <figure><img src="sources/exp/dist_rna_rocbf.png" alt="ROCBF"><figcaption>(d) ROCBF</figcaption></figure>
+      <figure><img src="sources/exp/dist_rna_approx_gt.png" alt="L-CBF"><figcaption>(e) L-CBF</figcaption></figure>
+      <figure><img src="sources/exp/dist_rna_gt.png" alt="Ground truth"><figcaption>(f) Ground truth</figcaption></figure>
+    </div>
+
+    <h2 style="margin-top: 28px; font-size: 1.55rem; font-weight: 500;">Inverted-pendulum trajectories</h2>
+    <p>
+      Neural CBFs with closed-loop trajectories under CBF-QP policies.
+      Red points are initial states, green points (origin) are goals, and red contours are zero level sets.
+      iDBF and ROCBF can reach the goal while entering the failure set; ICL-CBF and L-CBF intervene successfully.
+    </p>
+    <div class="exp-grid cols-2">
+      <figure><img src="sources/exp/traj_pen_icl_new.png" alt="ICL-CBF trajectories"><figcaption>(a) ICL-CBF</figcaption></figure>
+      <figure><img src="sources/exp/traj_pen_idbf_new.png" alt="iDBF trajectories"><figcaption>(b) iDBF</figcaption></figure>
+      <figure><img src="sources/exp/traj_pen_rocbf_new.png" alt="ROCBF trajectories"><figcaption>(c) ROCBF</figcaption></figure>
+      <figure><img src="sources/exp/traj_pen_approx_gt_new.png" alt="L-CBF trajectories"><figcaption>(d) L-CBF</figcaption></figure>
+    </div>
+
+    <h2 style="margin-top: 28px; font-size: 1.55rem; font-weight: 500;">Closed-loop success and collision rates</h2>
+    <div class="table-responsive" style="margin-top: 12px; overflow-x: auto;">
       <table class="table table-bordered" style="background: #fff; font-size: 15px; margin-bottom: 8px;">
         <thead>
           <tr>
@@ -248,16 +313,32 @@
         </tbody>
       </table>
       <p style="color:#666; font-size: 14px; font-style: italic; margin-top: 4px;">
-        Closed-loop success and collision rates (%). Bold highlights the best among iDBF / ROCBF / ICL-CBF (methods without ground-truth labels).
-        L-CBF is an upper bound trained with ground-truth labels.
+        Bold highlights the best among iDBF / ROCBF / ICL-CBF. L-CBF uses ground-truth labels (upper bound).
       </p>
     </div>
 
-    <ul style="margin-top: 12px;">
-      <li>On the single integrator, ROCBF reaches zero collisions but is overly conservative (SR 9.8%), while ICL-CBF keeps CR 0% with SR 80.6% (vs. L-CBF 86.2%).</li>
-      <li>On inverted pendulum and Dubins car, ICL-CBF nearly matches L-CBF on both CR and SR.</li>
-      <li>On quadrotor, ICL-CBF substantially reduces collisions vs. iDBF/ROCBF and recovers high task success (SR 77.2%).</li>
-    </ul>
+    <h2 style="margin-top: 28px; font-size: 1.55rem; font-weight: 500;">Safety labels for inverted pendulum</h2>
+    <p>
+      Training data annotations: red = unsafe, blue = safe; black margins mark the predefined safe set.
+      ICL labels are closest to L-CBF / ground truth.
+    </p>
+    <div class="exp-grid cols-2">
+      <figure><img src="sources/exp/data_pen_icl.png" alt="ICL labels"><figcaption>(a) ICL-CBF</figcaption></figure>
+      <figure><img src="sources/exp/data_pen_idbf.png" alt="iDBF labels"><figcaption>(b) iDBF</figcaption></figure>
+      <figure><img src="sources/exp/data_pen_rocbf.png" alt="ROCBF labels"><figcaption>(c) ROCBF</figcaption></figure>
+      <figure><img src="sources/exp/data_pen_gt.png" alt="L-CBF labels"><figcaption>(d) L-CBF</figcaption></figure>
+    </div>
+
+    <h2 style="margin-top: 28px; font-size: 1.55rem; font-weight: 500;">Sensitivity to \(\delta\)</h2>
+    <p>
+      Collision and success rates as the constraint threshold \(\delta\) varies (single integrator and Dubins car).
+      Poor \(\delta\) can hurt performance; a grid search over \([0,1]\) finds strong settings (we use \(\delta=0.6\) in several tasks).
+    </p>
+    <figure class="figure-box" style="margin-top: 8px;">
+      <img src="sources/exp/sensitivity.png" alt="Sensitivity to delta"
+           style="width: 100%; max-width: 100%; height: auto; transform: none; margin-bottom: 8px; border: 1px solid #ddd; border-radius: 8px;">
+      <figcaption>Collision and success rates vs. \(\delta\).</figcaption>
+    </figure>
   </div>
 
   <!-- Poster -->
