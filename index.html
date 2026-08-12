@@ -16,8 +16,21 @@
   <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
   <style>
-    body { padding-top: 30px; }
-    .text-title { font-weight: bold; margin-top: 20px; }
+    body {
+      padding-top: 30px;
+      font-family: Palatino, "Palatino Linotype", "Book Antiqua", Georgia, serif;
+      line-height: 1.58;
+      color: #202124;
+    }
+    h1, h2, h3, p, li, td, th, .ins_text, .authors {
+      font-family: Palatino, "Palatino Linotype", "Book Antiqua", Georgia, serif;
+    }
+    .text-title {
+      font-weight: 500;
+      margin-top: 20px;
+      font-size: clamp(1.84rem, 3.67vw, 2.6rem);
+      line-height: 1.25;
+    }
     .top20 { margin-top: 20px; }
     .bottom10 { margin-bottom: 10px; }
     a:hover { opacity: 0.85; transform: translateY(-2px); }
@@ -27,11 +40,13 @@
       padding: 4px 10px; font-size: 12px; line-height: 1;
       border: 1px solid #ddd; border-radius: 6px; background: #f7f7f7;
       cursor: pointer;
+      font-family: Palatino, "Palatino Linotype", "Book Antiqua", Georgia, serif;
     }
     .copy-btn:active { transform: translateY(1px); }
     .codebox-pre {
       margin: 0; padding: 14px;
       overflow: auto; border: 1px solid #eee; border-radius: 8px; background: #fafafa;
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
     }
   </style>
 </head>
@@ -128,22 +143,6 @@
     </div>
   </div>
 
-  <!-- Poster -->
-  <div class="row top30">
-    <div class="col-md-10 col-md-offset-1 text-center">
-      <h2 style="margin-bottom: 16px;">Poster</h2>
-      <figure class="figure-box" style="margin-top: 0;">
-        <img src="sources/poster.svg" alt="Conference poster"
-             class="center-img scale-1-0"
-             style="transform: none; margin-bottom: 12px; width: 100%; max-width: 100%; height: auto; border: 1px solid #ddd; border-radius: 8px;">
-        <figcaption>
-          Project poster.
-          <a href="poster.pdf" target="_blank">Download PDF</a>
-        </figcaption>
-      </figure>
-    </div>
-  </div>
-
   <br>
 
   <div id="pageTitle"></div>
@@ -160,6 +159,121 @@
     and unsafe ones, i.e., belong to the complement of that set.
     We then use that function to label a new set of simulated trajectories to train our neural CBF.
     We empirically evaluate our approach in four different environments, demonstrating that it outperforms existing baselines and achieves comparable performance to a neural CBF trained with the same data but annotated with ground-truth safety labels.
+  </div>
+
+  <!-- Experimental results -->
+  <div class="row top20 text-body">
+    <h1>Experimental results</h1>
+    <p>
+      We evaluate ICL-CBF against <span class="text-blue-bold">iDBF</span>, <span class="text-blue-bold">ROCBF</span>, and
+      <span class="text-blue-bold">L-CBF</span> (neural CBF trained with ground-truth safety labels) on four scenarios:
+      single integrator, inverted pendulum, Dubins car, and quadrotor.
+      Metrics are collision rate (CR, %, lower is better) and success rate (SR, %, higher is better).
+      ICL-CBF achieves the best CR/SR among methods that do not use ground-truth labels, and is close to L-CBF.
+    </p>
+
+    <div class="table-responsive" style="margin-top: 18px; overflow-x: auto;">
+      <table class="table table-bordered" style="background: #fff; font-size: 15px; margin-bottom: 8px;">
+        <thead>
+          <tr>
+            <th>Task</th>
+            <th>Metric</th>
+            <th>iDBF</th>
+            <th>ROCBF</th>
+            <th>ICL-CBF (ours)</th>
+            <th>L-CBF</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td rowspan="2">Single integrator</td>
+            <td>CR</td>
+            <td>99.20</td>
+            <td>0.00</td>
+            <td><b>0.00</b></td>
+            <td>0.00</td>
+          </tr>
+          <tr>
+            <td>SR</td>
+            <td>0.80</td>
+            <td>9.80</td>
+            <td><b>80.60</b></td>
+            <td>86.20</td>
+          </tr>
+          <tr>
+            <td rowspan="2">Inverted pendulum</td>
+            <td>CR</td>
+            <td>2.80</td>
+            <td>5.00</td>
+            <td><b>0.20</b></td>
+            <td>0.60</td>
+          </tr>
+          <tr>
+            <td>SR</td>
+            <td>97.20</td>
+            <td>95.00</td>
+            <td><b>99.80</b></td>
+            <td>99.40</td>
+          </tr>
+          <tr>
+            <td rowspan="2">Dubins car</td>
+            <td>CR</td>
+            <td>0.00</td>
+            <td>69.30</td>
+            <td><b>1.80</b></td>
+            <td>0.30</td>
+          </tr>
+          <tr>
+            <td>SR</td>
+            <td>75.00</td>
+            <td>6.40</td>
+            <td><b>97.60</b></td>
+            <td>99.60</td>
+          </tr>
+          <tr>
+            <td rowspan="2">Quadrotor</td>
+            <td>CR</td>
+            <td>65.70</td>
+            <td>75.00</td>
+            <td><b>17.10</b></td>
+            <td>1.50</td>
+          </tr>
+          <tr>
+            <td>SR</td>
+            <td>2.80</td>
+            <td>0.00</td>
+            <td><b>77.20</b></td>
+            <td>98.00</td>
+          </tr>
+        </tbody>
+      </table>
+      <p style="color:#666; font-size: 14px; font-style: italic; margin-top: 4px;">
+        Closed-loop success and collision rates (%). Bold highlights the best among iDBF / ROCBF / ICL-CBF (methods without ground-truth labels).
+        L-CBF is an upper bound trained with ground-truth labels.
+      </p>
+    </div>
+
+    <ul style="margin-top: 12px;">
+      <li>On the single integrator, ROCBF reaches zero collisions but is overly conservative (SR 9.8%), while ICL-CBF keeps CR 0% with SR 80.6% (vs. L-CBF 86.2%).</li>
+      <li>On inverted pendulum and Dubins car, ICL-CBF nearly matches L-CBF on both CR and SR.</li>
+      <li>On quadrotor, ICL-CBF substantially reduces collisions vs. iDBF/ROCBF and recovers high task success (SR 77.2%).</li>
+    </ul>
+  </div>
+
+  <!-- Poster -->
+  <div class="row top30">
+    <div class="col-md-10 col-md-offset-1 text-center">
+      <h2 style="margin-bottom: 16px;">Poster</h2>
+      <figure class="figure-box" style="margin-top: 0;">
+        <img src="sources/poster.svg" alt="Conference poster"
+             class="center-img scale-1-0"
+             style="transform: none; margin-bottom: 12px; width: 100%; max-width: 100%; height: auto; border: 1px solid #ddd; border-radius: 8px;">
+        <figcaption>
+          Project poster.
+          <a href="poster.pdf" target="_blank">Download PDF</a>
+        </figcaption>
+      </figure>
+    </div>
   </div>
 
   <!-- Citation -->

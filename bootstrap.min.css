@@ -249,7 +249,7 @@ body {
   flex-shrink: 0;
 }
 .publication-authors {
-    font-family: 'Google Sans', sans-serif;
+    font-family: Palatino, "Palatino Linotype", "Book Antiqua", Georgia, serif;
 }
 .publication-authors a {
    color: hsl(204, 86%, 53%) !important;
@@ -384,14 +384,14 @@ body {
 .bottom30 { margin-bottom:30px; }
 
 @media screen and (min-width:992px) {
-  body, td, th, tr, p, a {
-    font-family: 'Source Sans Pro', 'Lato', Verdana, Helvetica, sans-serif;
+  body, td, th, tr, p, a, h1, h2, h3, li, .ins_text, .authors, .publication-authors {
+    font-family: Palatino, "Palatino Linotype", "Book Antiqua", Georgia, serif;
     font-size: 18px;
   }
 }
 @media screen and (max-width:991px) {
-  body, td, th, tr, p, a {
-    font-family: 'Source Sans Pro', 'Lato', Verdana, Helvetica, sans-serif;
+  body, td, th, tr, p, a, h1, h2, h3, li, .ins_text, .authors, .publication-authors {
+    font-family: Palatino, "Palatino Linotype", "Book Antiqua", Georgia, serif;
     font-size: 16px;
   }
 
