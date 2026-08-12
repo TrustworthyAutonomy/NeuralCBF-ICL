@@ -43,7 +43,8 @@
   <div class="row text-center">
     <h1 class="text-title">
       Learning <span class="text-highlight" style="font-size: inherit;">Neural Control Barrier Functions</span>
-      from Expert Demonstrations using Inverse Constraint Learning
+      from Expert Demonstrations using
+      <span class="text-highlight" style="font-size: inherit;">Inverse Constraint Learning</span>
     </h1>
   </div>
 
@@ -84,12 +85,13 @@
         Paper
       </a>
 
-      <!-- Update href when the code repository is public -->
-      <a href="https://github.com/TrustworthyAutonomy" target="_blank"
+      <a href="#" aria-disabled="true"
+         title="Code coming soon"
+         onclick="return false;"
          style="display: inline-flex; align-items: center; margin: 0 10px;
                 padding: 10px 25px; background-color: #24292E; color: white;
                 text-decoration: none; border-radius: 25px; font-size: 18px;
-                font-weight: 500; transition: all 0.2s ease;">
+                font-weight: 500; transition: all 0.2s ease; opacity: 0.75; cursor: default;">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"
              width="22" height="22" style="margin-right:10px;">
           <path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53
@@ -104,9 +106,41 @@
           0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8
           c0-4.42-3.58-8-8-8z"/>
         </svg>
-        Code
+        Code (coming soon)
       </a>
 
+    </div>
+  </div>
+
+  <!-- Figure 1: framework (figs/last.pdf) -->
+  <div class="row top30">
+    <div class="col-md-10 col-md-offset-1 text-center">
+      <figure class="figure-box" style="margin-top: 0;">
+        <img src="sources/fig1.svg" alt="ICL-CBF training framework"
+             class="center-img scale-1-0"
+             style="transform: none; margin-bottom: 12px; width: 100%; max-width: 100%; height: auto; border: 1px solid #ddd; border-radius: 8px;">
+        <figcaption>
+          The framework for training an ICL-CBF \(B_\theta\), where solid arrows are expert trajectories and dashed arrows are trajectories from a CBF-QP policy with \(\pi_{\mathit{ref}}\) and \(B_\theta\).
+          \(\mathcal{C}\) is the constraint represented by the learned constraint function \(\hat{c}_\phi\).
+          We train \(B_\theta\) on trajectories sampled with \(\pi_{\mathit{ref}}\) and labeled by \(\hat{c}_\phi\), simulate with the filter, update \(\hat{c}_\phi\) from the difference vs. expert trajectories, retrain, and iterate until convergence.
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <!-- Poster -->
+  <div class="row top30">
+    <div class="col-md-10 col-md-offset-1 text-center">
+      <h2 style="margin-bottom: 16px;">Poster</h2>
+      <figure class="figure-box" style="margin-top: 0;">
+        <img src="sources/poster.svg" alt="Conference poster"
+             class="center-img scale-1-0"
+             style="transform: none; margin-bottom: 12px; width: 100%; max-width: 100%; height: auto; border: 1px solid #ddd; border-radius: 8px;">
+        <figcaption>
+          Project poster.
+          <a href="poster.pdf" target="_blank">Download PDF</a>
+        </figcaption>
+      </figure>
     </div>
   </div>
 
